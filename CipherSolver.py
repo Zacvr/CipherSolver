@@ -36,6 +36,8 @@ decimal_encoding = ""
 hex_encoding = ""
 
 # Creates the decoding variables
+atbash_decoding = ""
+Atbash_Test = ""
 binary_decoding = ""
 decimal_decoding = ""
 hex_decoding = ""
@@ -379,6 +381,8 @@ decoding_decode.grid(column=0, row=3, sticky="W")
 # Atbash
 
 def atbash():
+    global atbash_decoding, Atbash_Test
+    Caesar_Output_Decoding.destroy()
     atbash_cipher = {'A': 'Z', 'a': 'z', 'B': 'Y', 'b': 'y', 'C': 'X', 'c': 'x', 'D': 'W', 'd': 'w', 'E': 'V', 'e': 'v',
                  'F': 'U', 'f': 'u', 'G': 'T', 'g': 't', 'H': 'S', 'h': 's', 'I': 'R', 'i': 'r', 'J': 'Q', 'j': 'q',
                  'K': 'P', 'k': 'p', 'L': 'O', 'l': 'o', 'M': 'N', 'm': 'n', 'N': 'M', 'n': 'm', 'O': 'L', 'o': 'l',
@@ -393,8 +397,13 @@ def atbash():
     for char in message:
         if char in atbash_cipher.keys():
             print(atbash_cipher[char], end="")
-    print("")
+            Atbash_Test += (atbash_cipher[char])
 
+
+    print("")
+    Atbash_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Atbash: \t" + Atbash_Test)
+    Atbash_Output_Decoding.grid(column=1, row=6, sticky="W")
+    print()
 
 
 
