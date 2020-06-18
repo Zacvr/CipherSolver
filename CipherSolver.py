@@ -1,4 +1,4 @@
-# Created By: Zac Van Roekel
+# Created By: Zacvr
 # Created On: 4/15/20
 # This program will help either a user encode a input or try and decode a input
 # This was created to be an offline version of some websites as well as a quicker version of those sites
@@ -14,7 +14,7 @@ import codecs
 
 # Creates the tkinter root window, changes the name of the window and sets the window size
 root = Tk()
-root.title("Cipher Helper Working")
+root.title("Cipher Solver")
 
 # This is commented out since it is not needed but might be used for
 root.geometry("800x200")
@@ -57,6 +57,7 @@ def retrieve_input_encode():
     Input_Encoding.destroy(), Binary_Output_Encoding.destroy(), Decimal_Output_Encoding.destroy(), Hex_Output_Encoding.destroy()
     # Converts the user input into a more reliable variable
     Final_Input_Encoding = Input_Entry.get()
+    # Creates a Label for the Input put in by the user
     # Creates a Label for the Input put in by the user
     Input_Encoding = Label(Encoding_Output_Frame, width=50, text="Input: " + str(Final_Input_Encoding))
     # Prints the user Input into the Terminal for easy copying
@@ -372,7 +373,7 @@ decoding_decode.grid(column=0, row=3, sticky="W")
 
 
 
-# AtBash
+# Atbash
 
 def atbash():
     atbash_cipher = {'A': 'Z', 'a': 'z', 'B': 'Y', 'b': 'y', 'C': 'X', 'c': 'x', 'D': 'W', 'd': 'w', 'E': 'V', 'e': 'v',
@@ -385,13 +386,11 @@ def atbash():
                  '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9', '0': '0'}
 
     message = Input_Entry.get()
-    print("AtBash: \t",end="")
+    print("Atbash: \t", end="")
     for char in message:
         if char in atbash_cipher.keys():
             print(atbash_cipher[char], end="")
     print("")
-
-
 
 
 
@@ -412,13 +411,12 @@ def Caesar_Cipher ():
         #Caesar_Output_Decoding = Message(Decoding_Caesar_Frame, text="Offset {}: {}".format(offset, Caesar(s, (-offset) % 26)))
         #Caesar_Output_Decoding.grid(column=1, row=6, sticky="W")
         print("Offset {}:\t{}".format(offset, Caesar(s, (-offset) % 26)))
+    print("********************************************************************")
 
 
 
 def Rot_13():
     print("Rot 13: \t"+codecs.decode(Input_Entry.get(), "rot13"))
-
-
 
 
 
@@ -449,18 +447,22 @@ Input_Decoding = Label(Decoding_Ciphers_Frame, width=50, text="Input: " + str(Fi
 
 
 
+# Starts the retrieve input decode Function
+decoding_decode = Button(Decoding_Ciphers, text="Atbash", command=atbash, wraplength=400)
+# Adds the decoding function button to Decoding tab
+decoding_decode.grid(column=0, row=0, sticky="W")
+
+Atbash_Output_Decoding = Label(Decoding_Ciphers_Frame)
+# Places the Binary output into the frame
+Atbash_Output_Decoding.grid(column=1, row=6, sticky="W")
+
+
+
 
 # Places a line inside of the Output Frame that will show our Binary text
 Caesar_Output_Decoding = Label(Decoding_Ciphers_Frame, text="This will be printed inside of the terminal")
 # Places the Binary output into the frame
 Caesar_Output_Decoding.grid(column=1, row=6, sticky="W")
-
-
-
-# Starts the retrieve input decode Function
-decoding_decode = Button(Decoding_Ciphers, text="Brute AtBash", command=atbash, wraplength=400)
-# Adds the decoding function button to Decoding tab
-decoding_decode.grid(column=0, row=0, sticky="W")
 
 
 
