@@ -4,6 +4,9 @@
 # This was created to be an offline version of some websites as well as a quicker version of those sites
 # It uses tkinter as a GUI to allow easy use by anyone
 
+
+
+
 # Imports tkinter
 from tkinter import *
 from tkinter import ttk
@@ -37,7 +40,7 @@ binary_decoding = ""
 decimal_decoding = ""
 hex_decoding = ""
 base64_decoding =""
-
+base32_decoding = ""
 
 
 
@@ -401,10 +404,21 @@ def atbash():
 #Base Decoding
 
 def Run_All_Bases():
+    base32()
     base64()
 
 
-
+def base32():
+    import base64
+    global base32_decoding
+    Caesar_Output_Decoding.destroy()
+    base32_decoding = Input_Entry.get()
+    b = base32_decoding.encode("UTF-8")
+    base32_decoding =  base64.b32encode(b)
+    base32_decoding = base32_decoding.decode("UTF-8")
+    Base32_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base32: \t" + base32_decoding)
+    Base32_Output_Decoding.grid(column=1, row=6, sticky="W")
+    print("Base32: \t"+base32_decoding)
 
 def base64():
     import base64
@@ -413,10 +427,8 @@ def base64():
     b = base64_decoding.encode("UTF-8")
     base64_decoding = base64.b64encode(b)
     base64_decoding = base64_decoding.decode("UTF-8")
-    decoding_decode = Button(Decoding_Ciphers, text="Brute Force Bases", command=Run_All_Bases, wraplength=400)
-    decoding_decode.grid(column=1, row=0, sticky="W")
-    Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: " + base64_decoding)
-    Base64_Output_Decoding.grid(column=1, row=6, sticky="W")
+    Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \t" + base64_decoding)
+    Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
     print("Base64: \t"+base64_decoding)
 
 
@@ -505,6 +517,10 @@ Atbash_Output_Decoding.grid(column=1, row=6, sticky="W")
 # Base 64
 decoding_decode = Button(Decoding_Ciphers, text="Brute Force Bases", command=Run_All_Bases, wraplength=400)
 decoding_decode.grid(column=1, row=0, sticky="W")
+
+Base32_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base32: " + base32_decoding)
+Base32_Output_Decoding.grid(column=1, row=6, sticky="W")
+
 Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: " + base64_decoding)
 Base64_Output_Decoding.grid(column=1, row=6, sticky="W")
 
