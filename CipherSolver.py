@@ -404,7 +404,7 @@ def Caesar (s, offset):
 def Caesar_Cipher ():
     global Caesar_Output_Decoding
     #Caesar_Output_Decoding.destroy()
-    s = Input_Entry.get()
+    s = Input_Entry.get().lower()
     print("********************************************************************")
     print("Brute Forcing Caesar Cipher")
     for offset in range (26):
