@@ -404,7 +404,7 @@ def Caesar (s, offset):
 def Caesar_Cipher ():
     global Caesar_Output_Decoding
     #Caesar_Output_Decoding.destroy()
-    s = Input_Entry.get().lower()
+    s = Input_Entry.get()
     print("********************************************************************")
     print("Brute Forcing Caesar Cipher")
     for offset in range (26):
@@ -419,9 +419,21 @@ def Rot_13():
     print("Rot 13: \t"+codecs.decode(Input_Entry.get(), "rot13"))
 
 
+def Rot_47():
+    s = Input_Entry.get()
+    key = 47
+    decryp_text = ""
 
-
-
+    for i in range(len(s)):
+        rot_47_temp = ord(s[i]) - key
+        if ord(s[i]) == 32:
+            decryp_text += " "
+        elif rot_47_temp < 32:
+            rot_47_temp += 94
+            decryp_text += chr(rot_47_temp)
+        else:
+            decryp_text += chr(rot_47_temp)
+    print("Rot 47: \t{}".format(decryp_text))
 
 
 
@@ -476,6 +488,19 @@ decoding_decode.grid(column=1, row=0, sticky="W")
 decoding_decode = Button(Decoding_Ciphers, text="Rot 13", command=Rot_13, wraplength=400)
 # Adds the decoding function button to Decoding tab
 decoding_decode.grid(column=2, row=0, sticky="W")
+
+# Starts the retrieve input decode Function
+decoding_decode = Button(Decoding_Ciphers, text="Brute Force Caesar", command=Caesar_Cipher, wraplength=400)
+# Adds the decoding function button to Decoding tab
+decoding_decode.grid(column=1, row=0, sticky="W")
+
+
+# Starts the retrieve input decode Function
+decoding_decode = Button(Decoding_Ciphers, text="Rot 47", command=Rot_47, wraplength=400)
+# Adds the decoding function button to Decoding tab
+decoding_decode.grid(column=3, row=0, sticky="W")
+
+
 
 
 # Used for the tab control ( the Encoding and Decoding Tabs(not fully sure what it does but it is needed)
