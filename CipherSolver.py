@@ -395,6 +395,34 @@ def atbash():
 
 
 
+
+
+
+#Base Decoding
+
+def Run_All_Bases():
+    base64()
+
+
+
+
+def base64():
+    import base64
+    Caesar_Output_Decoding.destroy()
+    base64_decoding = Input_Entry.get()
+    b = base64_decoding.encode("UTF-8")
+    base64_decoding = base64.b64encode(b)
+    base64_decoding = base64_decoding.decode("UTF-8")
+    decoding_decode = Button(Decoding_Ciphers, text="Brute Force Bases", command=Run_All_Bases, wraplength=400)
+    decoding_decode.grid(column=1, row=0, sticky="W")
+    Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: " + base64_decoding)
+    Base64_Output_Decoding.grid(column=1, row=6, sticky="W")
+    print("Base64: \t"+base64_decoding)
+
+
+
+
+
 # Caesar Ciphers
 
 def Caesar (s, offset):
@@ -413,7 +441,7 @@ def Caesar_Cipher ():
         print("Offset {}:\t{}".format(offset, Caesar(s, (-offset) % 26)))
     print("********************************************************************")
 
-
+# Rot Decoding
 
 def Rot_13():
     print("Rot 13: \t"+codecs.decode(Input_Entry.get(), "rot13"))
@@ -471,6 +499,28 @@ Atbash_Output_Decoding.grid(column=1, row=6, sticky="W")
 
 
 
+# Bases
+
+
+# Base 64
+decoding_decode = Button(Decoding_Ciphers, text="Brute Force Bases", command=Run_All_Bases, wraplength=400)
+decoding_decode.grid(column=1, row=0, sticky="W")
+Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: " + base64_decoding)
+Base64_Output_Decoding.grid(column=1, row=6, sticky="W")
+
+
+
+
+
+
+
+
+# Brute Force Caesar
+decoding_decode = Button(Decoding_Ciphers, text="Brute Force Caesar", command=Caesar_Cipher, wraplength=400)
+# Adds the decoding function button to Decoding tab
+decoding_decode.grid(column=2, row=0, sticky="W")
+
+
 # Places a line inside of the Output Frame that will show our Binary text
 Caesar_Output_Decoding = Label(Decoding_Ciphers_Frame, text="This will be printed inside of the terminal")
 # Places the Binary output into the frame
@@ -478,27 +528,22 @@ Caesar_Output_Decoding.grid(column=1, row=6, sticky="W")
 
 
 
-# Starts the retrieve input decode Function
-decoding_decode = Button(Decoding_Ciphers, text="Brute Force Caesar", command=Caesar_Cipher, wraplength=400)
-# Adds the decoding function button to Decoding tab
-decoding_decode.grid(column=1, row=0, sticky="W")
 
+
+
+## Rots
 
 # Starts the retrieve input decode Function
 decoding_decode = Button(Decoding_Ciphers, text="Rot 13", command=Rot_13, wraplength=400)
 # Adds the decoding function button to Decoding tab
-decoding_decode.grid(column=2, row=0, sticky="W")
+decoding_decode.grid(column=3, row=0, sticky="W")
 
-# Starts the retrieve input decode Function
-decoding_decode = Button(Decoding_Ciphers, text="Brute Force Caesar", command=Caesar_Cipher, wraplength=400)
-# Adds the decoding function button to Decoding tab
-decoding_decode.grid(column=1, row=0, sticky="W")
 
 
 # Starts the retrieve input decode Function
 decoding_decode = Button(Decoding_Ciphers, text="Rot 47", command=Rot_47, wraplength=400)
 # Adds the decoding function button to Decoding tab
-decoding_decode.grid(column=3, row=0, sticky="W")
+decoding_decode.grid(column=4, row=0, sticky="W")
 
 
 
