@@ -107,7 +107,7 @@ def retrieve_input_encode():
 def retrieve_input_decode():
     # These are needed for the destroy command as well as to not cause issues
     global Input_Decoding, Binary_Output_Decoding, Base64_Output_Decoding, Decimal_Output_Decoding, Hex_Output_Decoding
-
+    import base64
     #Prints a welcome message and a shamless Github plug
     print("**************************************************")
     print("**   Thank you for using my program to decode   **"
