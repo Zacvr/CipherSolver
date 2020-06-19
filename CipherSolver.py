@@ -1,5 +1,6 @@
 # Created By: Zacvr
 # Created On: 4/15/20
+# Last Updated On 6/19/20 (11:45AM PST)
 # This program will help either a user encode a input or try and decode a input
 # This was created to be an offline version of some websites as well as a quicker version of those sites
 # It uses tkinter as a GUI to allow easy use by anyone
@@ -44,6 +45,14 @@ decimal_decoding = ""
 hex_decoding = ""
 base64_decoding =""
 base32_decoding = ""
+
+
+
+def Cipher_Frame_Destroyer():
+    for widget in Decoding_Ciphers_Frame.winfo_children():
+        widget.destroy()
+    for i in Decoding_Ciphers_Frame.winfo_children():
+        i.destroy()
 
 
 
@@ -383,7 +392,8 @@ decoding_decode.grid(column=0, row=3, sticky="W")
 
 def atbash():
     global atbash_decoding, Atbash_Test
-    Caesar_Output_Decoding.destroy()
+    Cipher_Frame_Destroyer()
+    Atbash_Test = ""
     atbash_cipher = {'A': 'Z', 'a': 'z', 'B': 'Y', 'b': 'y', 'C': 'X', 'c': 'x', 'D': 'W', 'd': 'w', 'E': 'V', 'e': 'v',
                  'F': 'U', 'f': 'u', 'G': 'T', 'g': 't', 'H': 'S', 'h': 's', 'I': 'R', 'i': 'r', 'J': 'Q', 'j': 'q',
                  'K': 'P', 'k': 'p', 'L': 'O', 'l': 'o', 'M': 'N', 'm': 'n', 'N': 'M', 'n': 'm', 'O': 'L', 'o': 'l',
@@ -404,7 +414,6 @@ def atbash():
     print("")
     Atbash_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Atbash: \t" + Atbash_Test)
     Atbash_Output_Decoding.grid(column=1, row=6, sticky="W")
-    print()
 
 
 
@@ -415,6 +424,8 @@ def atbash():
 
 def Run_All_Bases():
     global base64
+    Cipher_Frame_Destroyer()
+    Atbash_Output_Decoding.destroy()
     base32()
     base64()
 
@@ -422,7 +433,6 @@ def Run_All_Bases():
 def base32():
     import base64
     global base32_decoding
-    Caesar_Output_Decoding.destroy()
     try:
         base32_decoding = Input_Entry.get()
         b = base32_decoding.encode("UTF-8")
@@ -433,10 +443,11 @@ def base32():
         print("Base32: \t"+base32_decoding)
     except base64.binascii.Error:
         print("Base32: \t Binascii Error")
+        Base32_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base32: \t Binascii Error")
+        Base32_Output_Decoding.grid(column=1, row=6, sticky="W")
 
 def base64():
     import base64
-    Caesar_Output_Decoding.destroy()
     base64_decoding = Input_Entry.get()
     try:
         b = base64_decoding.encode()
@@ -450,11 +461,14 @@ def base64():
         Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
         print("Base64: \tUnicodeDecodeError")
     except AttributeError:
-        Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \tBase64: Attribute Error")
+        Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \tAttribute Error")
         Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
         print("Base64: \tAttribute Error")
     except base64.binascii.Error:
-        print("Base32: \t Binascii Error")
+        print("Base64: \t Binascii Error")
+        Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \t Binascii Error")
+        Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
+        print("Base64: \t Binascii Error")
 
 
 
@@ -468,7 +482,7 @@ def Caesar (s, offset):
 
 def Caesar_Cipher ():
     global Caesar_Output_Decoding
-    #Caesar_Output_Decoding.destroy()
+    Cipher_Frame_Destroyer()
     s = Input_Entry.get().lower()
     print("********************************************************************")
     print("Brute Forcing Caesar Cipher")
@@ -476,29 +490,42 @@ def Caesar_Cipher ():
         #Caesar_Output_Decoding = Message(Decoding_Caesar_Frame, text="Offset {}: {}".format(offset, Caesar(s, (-offset) % 26)))
         #Caesar_Output_Decoding.grid(column=1, row=6, sticky="W")
         print("Offset {}:\t{}".format(offset, Caesar(s, (-offset) % 26)))
+
+    Caesar_Output_Decoding = Label(Decoding_Ciphers_Frame, text="This will be printed inside of the terminal")
+    # Places the Binary output into the frame
+    Caesar_Output_Decoding.grid(column=1, row=6, sticky="W")
     print("********************************************************************")
 
 # Rot Decoding
 
 def Rot_13():
-    print("Rot 13: \t"+codecs.decode(Input_Entry.get(), "rot13"))
+    Cipher_Frame_Destroyer()
+    Rot_13_decoding = codecs.decode(Input_Entry.get(), "rot13")
+    Rot_13_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Rot 47: \t"+ Rot_13_decoding)
+    # Places the Binary output into the frame
+    Rot_13_Output_Decoding.grid(column=1, row=6, sticky="W")
+    print("Rot 13: \t"+Rot_13_decoding)
 
 
 def Rot_47():
+    Cipher_Frame_Destroyer()
     s = Input_Entry.get()
     key = 47
-    decryp_text = ""
+    Rot_47_decoding = ""
 
     for i in range(len(s)):
         rot_47_temp = ord(s[i]) - key
         if ord(s[i]) == 32:
-            decryp_text += " "
+            Rot_47_decoding += " "
         elif rot_47_temp < 32:
             rot_47_temp += 94
-            decryp_text += chr(rot_47_temp)
+            Rot_47_decoding += chr(rot_47_temp)
         else:
-            decryp_text += chr(rot_47_temp)
-    print("Rot 47: \t{}".format(decryp_text))
+            Rot_47_decoding += chr(rot_47_temp)
+    Rot_47_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Rot 47: \t"+ Rot_47_decoding)
+    # Places the Binary output into the frame
+    Rot_47_Output_Decoding.grid(column=1, row=6, sticky="W")
+    print("Rot 47: \t{}".format(Rot_47_decoding))
 
 
 
