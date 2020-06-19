@@ -14,6 +14,7 @@ import sys
 from collections import defaultdict
 import base64
 import codecs
+import binascii
 
 # Creates the tkinter root window, changes the name of the window and sets the window size
 root = Tk()
@@ -413,6 +414,7 @@ def atbash():
 #Base Decoding
 
 def Run_All_Bases():
+    global base64
     base32()
     base64()
 
@@ -421,24 +423,38 @@ def base32():
     import base64
     global base32_decoding
     Caesar_Output_Decoding.destroy()
-    base32_decoding = Input_Entry.get()
-    b = base32_decoding.encode("UTF-8")
-    base32_decoding =  base64.b32encode(b)
-    base32_decoding = base32_decoding.decode("UTF-8")
-    Base32_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base32: \t" + base32_decoding)
-    Base32_Output_Decoding.grid(column=1, row=6, sticky="W")
-    print("Base32: \t"+base32_decoding)
+    try:
+        base32_decoding = Input_Entry.get()
+        b = base32_decoding.encode("UTF-8")
+        base32_decoding =  base64.b32decode(b)
+        base32_decoding = base32_decoding.decode("UTF-8")
+        Base32_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base32: \t" + base32_decoding)
+        Base32_Output_Decoding.grid(column=1, row=6, sticky="W")
+        print("Base32: \t"+base32_decoding)
+    except base64.binascii.Error:
+        print("Base32: \t Binascii Error")
 
 def base64():
     import base64
     Caesar_Output_Decoding.destroy()
     base64_decoding = Input_Entry.get()
-    b = base64_decoding.encode("UTF-8")
-    base64_decoding = base64.b64encode(b)
-    base64_decoding = base64_decoding.decode("UTF-8")
-    Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \t" + base64_decoding)
-    Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
-    print("Base64: \t"+base64_decoding)
+    try:
+        b = base64_decoding.encode()
+        base64_decoding = base64.b64decode(b)
+        base64_decoding = base64_decoding.decode()
+        Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \t" + base64_decoding)
+        Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
+        print("Base64:  \t",base64_decoding)
+    except UnicodeDecodeError:
+        Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \tUnicodeDecodeError (UTF-8 byte 0x94)")
+        Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
+        print("Base64: \tUnicodeDecodeError")
+    except AttributeError:
+        Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: \tBase64: Attribute Error")
+        Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
+        print("Base64: \tAttribute Error")
+    except base64.binascii.Error:
+        print("Base32: \t Binascii Error")
 
 
 
@@ -531,7 +547,7 @@ Base32_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base32: " + base32_
 Base32_Output_Decoding.grid(column=1, row=6, sticky="W")
 
 Base64_Output_Decoding = Label(Decoding_Ciphers_Frame, text="Base64: " + base64_decoding)
-Base64_Output_Decoding.grid(column=1, row=6, sticky="W")
+Base64_Output_Decoding.grid(column=1, row=7, sticky="W")
 
 
 
